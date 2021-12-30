@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import Cookies from "js-cookie";
 import Pokemon from './Pokemon';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const AuthApi = React.createContext();
 const TokenApi = React.createContext();
@@ -29,34 +31,32 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="App">
       <AuthApi.Provider value={{ auth, setAuth }}>
         <TokenApi.Provider value={{ token, setToken }}>
           <Router>
             <div>
               <nav>
-                <ul>
+                <ul className="nav justify-content-evenly align-items-center">
                   {!auth ? (
-                    <li>
-                      <Link to="/register">Regsiter</Link>
+                    <li className="nav-item">
+                      <Link to="/register" className="text-decoration-none fs-5 link-info">Regsiter</Link>
                     </li>
                   ) : (
                     <></>
                   )}
                   {!auth ? (
                     <li>
-                      <Link to="/login">Login</Link>
+                      <Link to="/login" className="text-decoration-none fs-5 link-info">Login</Link>
                     </li>
                   ) : (
                     <></>
                   )}
                   <li>
-                    <Link to="/">Home</Link>
-                    {/* 
-                    Uncomment this line to see the list of pokemons!
-                    <Link to="/pokemons"><Pokemon/></Link> 
-                    */} 
+                    <Link to="/" className="text-decoration-none fs-5">Home</Link>  
                   </li>
+                  <li><Link to="/pokemons" className="text-decoration-none fs-7 text-muted"> <img src="https://img.icons8.com/color/48/000000/pokeball-2.png"/>
+                    See Pokemons Anyway!</Link> </li>
                 </ul>
               </nav>
               <Routes />
@@ -64,7 +64,8 @@ function App() {
           </Router>
         </TokenApi.Provider>
       </AuthApi.Provider>
-    </>
+      
+    </div>
   );
 }
 
@@ -72,6 +73,9 @@ const Routes = () => {
   const Auth = React.useContext(AuthApi);
   return (
     <Switch>
+      <Route path="/pokemons">
+        <Pokemon />
+      </Route>
       <Route path="/register">
         <Register />
       </Route>
@@ -85,6 +89,7 @@ const Routes = () => {
         auth={Auth.auth}
         component={Home}
       ></ProtectedRoute>
+
     </Switch>
   );
 };
@@ -126,13 +131,11 @@ const Home = () => {
 
 function Register() {
   const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const data = {
       username: name,
-      company: company,
       password: password,
     };
     axios
@@ -146,51 +149,34 @@ function Register() {
       });
   };
   return (
-    <>
+    <div className="container pt-5 my-5 text-white mx-auto" style={{maxWidth: "40%"}}>
       <form
-        style={{
-          marginTop: "100px",
-          marginLeft: "50px",
-          border: "solid 1px",
-          width: "max-content",
-          borderColor: "green",
-        }}
         onSubmit={handleSubmit}
       >
-        <div style={{ textAlign: "center" }}>Register Yourself</div>
-        <br />
-        <label>Username:</label>
+        <div style={{ textAlign: "center" }} className="fs-3">Register</div>
+        <div className="mb-3">
+        <label className="form-label">Username:</label>
         <input
           type="text"
-          className="username"
+          className="username form-control"
           value={name}
           onChange={(e) => setName(e.target.value)}
         ></input>
-        <br />
-        <br />
-        <label>Company: </label>
-        <input
-          type="text"
-          className="company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-        ></input>
-        <br />
-        <br />
-        <label>Password: </label>
+        </div>
+        <div className="mb-3">
+        <label className="form-label">Password: </label>
         <input
           type="password"
-          className="password"
+          className="password form-control"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></input>
-        <br />
-        <br />
-        <div style={{ textAlign: "center" }}>
-          <input type="submit" value="Submit" />
+        </div>
+        <div style={{ textAlign: "center" }} className="card_item">
+          <input className="btn btn-primary active" type="submit" value="Submit" />
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
@@ -225,42 +211,34 @@ const Login = () => {
     }
   };
   return (
-    <>
+    <div className="container pt-5 my-5 text-white mx-auto" style={{maxWidth: "40%"}}>
       <form
-        style={{
-          marginTop: "100px",
-          marginLeft: "50px",
-          border: "solid 1px",
-          width: "max-content",
-          borderColor: "green",
-        }}
         onSubmit={handleSubmit}
       >
-        <div style={{ textAlign: "center" }}>Login</div>
-        <br />
-        <label>Username:</label>
-        <input
-          type="text"
-          className="username"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-        <br />
-        <br />
-        <label>Password: </label>
-        <input
-          type="password"
-          className="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <br />
-        <br />
-        <div style={{ textAlign: "center" }}>
-          <input type="submit" value="Submit" />
+        <div style={{ textAlign: "center"}} className="fs-3">Login</div>
+        <div className="mb-3">
+          <label className="form-label">Username:</label>
+          <input
+            type="text"
+            className="username form-control"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          ></input>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password: </label>
+          <input
+            type="password"
+            className="password form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          ></input>
+        </div>
+        <div style={{ textAlign: "center" }} className="card_item">
+          <input className="btn btn-primary active" type="submit" value="Submit" />
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

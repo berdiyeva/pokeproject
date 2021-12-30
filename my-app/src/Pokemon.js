@@ -68,12 +68,13 @@ class Pokemon extends Component {
     return (
       <div>
         <Header />
-        <div className="container">
-          <div className="card-columns">
+        <div className="container mt-3 pb-3 d-flex flex-column justify-content-center">
+          <div className="card-deck d-flex flex-wrap m-1">
             {renderedPokemonList}
           </div>
+          <div type="button" className="btn btn-warning d-md-block mx-auto" key="more-button" id="more-button" onClick={this.handleMoreClick}>Load More</div>
         </div>
-        <button type="button" className="btn btn-secondary btn-block" key="more-button" id="more-button" onClick={this.handleMoreClick}>Load More</button>
+        
       </div>
     );
   }
