@@ -149,7 +149,7 @@ function Register() {
       });
   };
   return (
-    <div className="container pt-5 my-5 text-white mx-auto" style={{maxWidth: "40%"}}>
+    <div className="container pt-5 my-5 text-white mx-auto" style={{maxWidth: "fit-content"}}>
       <form
         onSubmit={handleSubmit}
       >
@@ -211,7 +211,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="container pt-5 my-5 text-white mx-auto" style={{maxWidth: "40%"}}>
+    <div className="container pt-5 my-5 text-white mx-auto" style={{maxWidth: "fit-content"}}>
       <form
         onSubmit={handleSubmit}
       >
